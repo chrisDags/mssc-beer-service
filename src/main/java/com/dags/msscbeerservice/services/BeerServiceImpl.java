@@ -6,6 +6,7 @@ import com.dags.msscbeerservice.web.controller.NotFoundException;
 import com.dags.msscbeerservice.web.mappers.BeerMapper;
 import com.dags.msscbeerservice.web.model.BeerDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;

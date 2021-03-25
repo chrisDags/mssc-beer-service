@@ -1,11 +1,14 @@
 package com.dags.msscbeerservice.web.controller;
 
 
+import com.dags.msscbeerservice.bootstrap.BeerLoader;
 import com.dags.msscbeerservice.services.BeerService;
+import com.dags.msscbeerservice.web.mappers.BeerMapper;
 import com.dags.msscbeerservice.web.model.BeerDto;
 import com.dags.msscbeerservice.web.model.BeerStyleEnum;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -32,6 +35,9 @@ class BeerControllerTest {
 
     @MockBean
     BeerService beerService;
+//
+//    @MockBean
+//    BeerMapper beerMapper;
 
     @Test
     void getBeerById() throws Exception {
@@ -76,7 +82,7 @@ class BeerControllerTest {
                 .beerName("My Beer")
                 .beerStyle(BeerStyleEnum.ALE)
                 .price(new BigDecimal("4.99"))
-                .upc(123123123L)
+                .upc(BeerLoader.BEER_1_UPC)
                 .build();
     }
 }
