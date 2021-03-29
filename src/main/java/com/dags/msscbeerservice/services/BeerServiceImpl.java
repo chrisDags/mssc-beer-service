@@ -105,4 +105,9 @@ public class BeerServiceImpl implements BeerService {
         }
             return beerPagedList;
     }
+
+    @Override
+    public BeerDto getByUpc(String upc) {
+        return beerMapper.beerToBeerDto(beerRepository.findByUpc(upc));
+    }
 }
