@@ -2,6 +2,7 @@ package guru.springframework.msscbeerservice.services.inventory;
 
 import guru.springframework.msscbeerservice.services.inventory.model.BeerInventoryDto;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
@@ -15,7 +16,7 @@ import java.util.UUID;
 
 
 @Slf4j
-//@ConfigurationProperties(prefix = "dags.brewery", ignoreUnknownFields = false)
+//@ConfigurationProperties(prefix = "sfg.brewery", ignoreUnknownFields = true)
 @Component
 public class BeerInventoryServiceRestTemplateImpl implements BeerInventoryService {
 
@@ -44,7 +45,7 @@ public class BeerInventoryServiceRestTemplateImpl implements BeerInventoryServic
 
         //sum from inventory list
 
-        System.out.println(responseEntity.toString());
+//        System.out.println(responseEntity.toString());
         //todo: Exchange??
         Integer onHand = Objects.requireNonNull(responseEntity.getBody())
                 .stream()

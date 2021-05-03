@@ -60,7 +60,7 @@ public class BeerController {
         return new ResponseEntity<>(beerService.getById(beerId, showInventoryOnHand), HttpStatus.OK);
     }
 
-    @Cacheable(cacheNames = "beerUpcCache")
+//    @Cacheable(cacheNames = "beerUpcCache")
     @GetMapping("beerUpc/{upc}")
     public ResponseEntity<BeerDto> getBeerByUpc(@PathVariable String upc) {
 
