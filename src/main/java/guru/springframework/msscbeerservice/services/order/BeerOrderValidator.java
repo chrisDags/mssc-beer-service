@@ -14,11 +14,11 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class BeerOrderValidator {
     private final BeerRepository beerRepository;
 
-    public Boolean validateOrder(BeerOrderDto beerOrderDto){
+    public Boolean validateOrder(BeerOrderDto beerOrderDto) {
         AtomicInteger beersNotFound = new AtomicInteger();
 
         beerOrderDto.getBeerOrderLines().forEach(orderLine -> {
-            if(beerRepository.findByUpc(orderLine.getUpc()) == null){
+            if (beerRepository.findByUpc(orderLine.getUpc()) == null) {
                 beersNotFound.incrementAndGet();
             }
         });

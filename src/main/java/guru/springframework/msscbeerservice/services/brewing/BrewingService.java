@@ -29,18 +29,18 @@ public class BrewingService {
     private BeerMapper beerMapper;
 
     @Scheduled(fixedRate = 5000)
-    public void checkForLowInventory(){
+    public void checkForLowInventory() {
         List<Beer> beers = beerRepository.findAll();
 
-        beers.forEach( beer ->{
+        beers.forEach(beer -> {
             // makes a REST call to beer-inventory-service
             Integer invQOH = beerInventoryService.getOnHandInventory(beer.getId());
 
 
             log.debug("Min on hand is: " + beer.getMinOnHand());
-            log.debug("Inventory is: " +  invQOH);
+            log.debug("Inventory is: " + invQOH);
 
-            if(beer.getMinOnHand() >= invQOH){
+            if (beer.getMinOnHand() >= invQOH) {
                 JmsTemplate.convertAndSend(JmsConfig.BREWING_REQUEST_QUEUE, new BrewBeerEvent(beerMapper.beerToBeerDto(beer)));
             }
         });

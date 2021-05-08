@@ -18,14 +18,14 @@ public class BeerOrderValidationListener {
 
     // BEER ORDER SERVICE IS SENDING TO THE VALIDATE_ORDER_QUEUE
     @JmsListener(destination = JmsConfig.VALIDATE_ORDER_QUEUE)
-    public void listen(ValidateOrderRequest validateOrderRequest){
+    public void listen(ValidateOrderRequest validateOrderRequest) {
         Boolean isValid = beerOrderValidator.validateOrder(validateOrderRequest.getBeerOrderDto());
 
         jmsTemplate.convertAndSend(JmsConfig.VALIDATE_ORDER_RESPONSE_QUEUE,
                 ValidateOrderResult.builder()
-                    .isValid(isValid)
-                    .orderId(validateOrderRequest.getBeerOrderDto().getId())
-                    .build());
+                        .isValid(isValid)
+                        .orderId(validateOrderRequest.getBeerOrderDto().getId())
+                        .build());
 
     }
 

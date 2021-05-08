@@ -15,21 +15,23 @@ import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
-//don't instantiate this bean if the local-discovery profile is active
+/**
+ * Created by jt on 2019-06-07.
+ */
 @Profile("!local-discovery")
 @Slf4j
-//@ConfigurationProperties(prefix = "sfg.brewery", ignoreUnknownFields = true)
+@ConfigurationProperties(prefix = "sfg.brewery", ignoreUnknownFields = false)
 @Component
 public class BeerInventoryServiceRestTemplateImpl implements BeerInventoryService {
 
     public static final String INVENTORY_PATH = "/api/v1/beer/{beerId}/inventory";
     private final RestTemplate restTemplate;
 
-    private String beerInventoryServiceHost = "http://localhost:8082";
+    private String beerInventoryServiceHost;
 
-//    public void setBeerInventoryServiceHost(String beerInventoryServiceHost) {
-//        this.beerInventoryServiceHost = beerInventoryServiceHost;
-//    }
+    public void setBeerInventoryServiceHost(String beerInventoryServiceHost) {
+        this.beerInventoryServiceHost = beerInventoryServiceHost;
+    }
 
     public BeerInventoryServiceRestTemplateImpl(RestTemplateBuilder restTemplateBuilder) {
         this.restTemplate = restTemplateBuilder.build();
@@ -42,13 +44,9 @@ public class BeerInventoryServiceRestTemplateImpl implements BeerInventoryServic
 
         ResponseEntity<List<BeerInventoryDto>> responseEntity = restTemplate
                 .exchange(beerInventoryServiceHost + INVENTORY_PATH, HttpMethod.GET, null,
-                        new ParameterizedTypeReference<List<BeerInventoryDto>>() {
-                        }, (Object) beerId);
+                        new ParameterizedTypeReference<List<BeerInventoryDto>>(){}, (Object) beerId);
 
         //sum from inventory list
-
-//        System.out.println(responseEntity.toString());
-        //todo: Exchange??
         Integer onHand = Objects.requireNonNull(responseEntity.getBody())
                 .stream()
                 .mapToInt(BeerInventoryDto::getQuantityOnHand)
