@@ -5,7 +5,22 @@ services:
     ports:
       - 8161:8161
       - 6161:6161
+
   zipkin:
     image: openzipkin/zipkin
     ports:
       - 9411:9411
+
+  eureka:
+    image: chrisdags/mssc-brewery-eureka
+    ports:
+      - 8761:8761
+
+  config:
+    image: chrisdags/mssc-config-server
+    ports:
+      - 8888:8888
+    depends_on:
+      - eureka
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://netflix:eureka@eureka:8761/eureka/
